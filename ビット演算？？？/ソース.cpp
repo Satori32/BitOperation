@@ -65,7 +65,7 @@ T Add(const T& A, const T& B) {
 	return V;
 }
 template<class T>
-T Sub(const T& A, const T& B) {//have bug??
+T Sub(const T& A, const T& B) {
 
 	std::size_t L = std::numeric_limits<T>::digits;
 	L += L % 2;
