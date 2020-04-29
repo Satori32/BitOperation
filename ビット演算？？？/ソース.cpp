@@ -94,7 +94,7 @@ int main() {
 	int Y1 = Sub(A, A);		std::cout << "Sub:" << A << '-' << A <<"=="<<Y1<< std::endl;
 	int Y2 = Sub(A, B);		std::cout << "Sub:" << A << '-' << B <<"=="<<Y2<<std::endl;
 	int Y3 = Sub(A, B * 2); std::cout << "Sub:" << A << '-' << B * 2 << "==" << Y3 << std::endl;
-	int Y4 = Sub(A/2, A);	std::cout << "Sub:" << A/2 << '-' << A << "==" << Y4 << std::endl;
+	int Y4 = Sub(A/2, A);	std::cout << "Sub:" << A/2 << '-' << A << "==" << Y4 << std::endl; 
 
 	return 0;
 
