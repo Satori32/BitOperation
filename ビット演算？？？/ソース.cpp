@@ -21,13 +21,16 @@ bool Xor(const bool& A, const bool& B) {
 }
 bool Nand(const bool& A, const bool& B) {
 	return !(A & B);
+//	return ~(A & B);	
 }
 
 bool Nor(const bool& A, const bool& B) {
 	return !(A | B);
+//	return ~(A | B);
 }
 bool Equal(const bool& A, const bool& B) {
 	return !(A ^ B);
+//	return ~(A ^ B);
 }
 
 std::tuple<bool, bool> HarfAdder(const bool& A, const bool& B) {//std::get<0>() => S. std::get<1>() => C.
@@ -68,11 +71,11 @@ template<class T>
 T Sub(const T& A, const T& B) {
 
 	std::size_t L = std::numeric_limits<T>::digits;
-	L += L % 2;
 
-	T V(0);
-	
 	std::tuple<bool, bool> X{ false,true };
+	T V(0);
+
+	L += L % 2;
 
 	for (std::size_t i = 0; i < L; i++) {
 		X = FullAdder(((A & (1 << i)) ? true : false), Not((B & (1 << i)) ? true : false), std::get<1>(X));
