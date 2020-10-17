@@ -86,7 +86,7 @@ T Sub(const T& A, const T& B) {
 }
 
 template<class T>
-T  Mul(const T A,const T B) {
+T  Mul(const T& A,const T& B) {
 	T C(0);
 
 	for (T X = 0; X < std::numeric_limits<T>::digits; X++) {
@@ -111,6 +111,10 @@ int main() {
 	int Y3 = Sub(A, B * 2); std::cout << "Sub:" << A << '-' << B * 2 << "==" << Y3 << std::endl;
 	int Y4 = Sub(A/2, A);	std::cout << "Sub:" << A/2 << '-' << A << "==" << Y4 << std::endl;
 
+	int Z1 = Mul(A, A);		std::cout << "Mul:" << A << '*' << A <<"=="<<Z1<< std::endl;
+	int Z2 = Mul(A, B);		std::cout << "Mul:" << A << '*' << B <<"=="<<Z2<<std::endl;
+	int Z3 = Mul(A, B * 2); std::cout << "Mul:" << A << '*' << B * 2 << "==" << Z3 << std::endl;
+	int Z4 = Mul(A/2, A);	std::cout << "Mul:" << A/2 << '*' << A << "==" << Z4 << std::endl;
 	return 0;
 
 }
