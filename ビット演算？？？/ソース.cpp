@@ -85,6 +85,18 @@ T Sub(const T& A, const T& B) {
 	return V;
 }
 
+template<class T>
+T  Mul(const T A,const T B) {
+	T C(0);
+
+	for (T X = 0; X < std::numeric_limits<T>::digits; X++) {
+		if (B & (1 << X)) {
+			C += (A << X);
+		}
+	}
+	return C;
+}
+
 
 int main() {
 	int A = 10;
