@@ -89,7 +89,7 @@ template<class T>
 T  Mul(const T& A,const T& B) {
 	T C(0);
 
-	for (T X = 0; X < std::numeric_limits<T>::digits; X++) {
+	for (std::size_t X = 0; X < std::numeric_limits<T>::digits; X++) {
 		if (B & (1 << X)) {
 			C += (A << X);
 		}
@@ -115,6 +115,8 @@ int main() {
 	int Z2 = Mul(A, B);		std::cout << "Mul:" << A << '*' << B <<"=="<<Z2<<std::endl;
 	int Z3 = Mul(A, B * 2); std::cout << "Mul:" << A << '*' << B * 2 << "==" << Z3 << std::endl;
 	int Z4 = Mul(A/2, A);	std::cout << "Mul:" << A/2 << '*' << A << "==" << Z4 << std::endl;
+	int Z5 = Mul(-A, -A);		std::cout << "Mul:" << -A << '*' << -A <<"=="<<Z5<< std::endl;
+	int Z6 = Mul(-A, A);		std::cout << "Mul:" << -A << '*' << A <<"=="<<Z6<< std::endl;
 	return 0;
 
 }
