@@ -118,10 +118,10 @@ std::tuple<T, T> DivMod(const T& A, const T& B) {//筆算法デス。
 	if (Abs(A) <Abs(B)) { return { 0,A }; }
 	for (std::size_t j = 0; j < std::numeric_limits<T>::digits; j++) {
 		for (i = 0; i < std::numeric_limits<T>::digits; i++) {
-			if (Abs(Z) < (Abs(B) << i)) { break; }
+			if ((Abs(Z)>>i) < Abs(B)) { break; }
 		}
-		Y |= 1 << (i - 1);
-		Z -= Abs(B) << (i - 1);
+		Y |= 1 << (i-1);
+		Z -= Abs(B) << (i-1);
 		if (Abs(Z) < Abs(B)) { break; }
 	}
 
@@ -172,7 +172,7 @@ int main() {
 		auto Y = ui(mt);
 		auto W = DivMod(X, Y);
 
-		std::cout << X << '/' << Y << ':' << X / Y << "==" << std::get<0>(W) <<':'<<((X/Y)==std::get<0>(W))<<','<< X % Y << "==" << std::get<1>(W) << std::endl;
+		std::cout << X << '/' << Y << ':' << X / Y << "==" << std::get<0>(W) <<":\t"<<((X/Y)==std::get<0>(W))<<','<< X % Y << "==" << std::get<1>(W) << std::endl;
 	}
 
 	return 0;
