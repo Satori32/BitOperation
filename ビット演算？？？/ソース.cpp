@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cmath>
 #include <random>
+#include <cstdint>
 //https://ja.wikipedia.org/wiki/â¡éZäÌ
 
 bool And(const bool& A, const bool& B) {
@@ -125,56 +126,73 @@ std::tuple<T, T> DivMod(const T& A, const T& B) {//ïMéZñ@ÉfÉXÅB
 		if (Abs(Z) < Abs(B)) { break; }
 	}
 
-	return { Y * Sign(Sign(A) * Sign(B)),Abs(Z) * Sign(Sign(A) * Sign(B)) };
+	return { Y * Sign(Sign(A) * Sign(B)),Abs(Z) * Sign(A) };
 }
-
 
 int main() {
 	int A = 10;
 	int B = -10;
 
-	int X1 = Add(A, A);		std::cout << "Add:" << A << '+' << A <<"=="<<X1<< std::endl;
-	int X2 = Add(A, B);		std::cout << "Add:" << A << '+' << B <<"=="<<X2<<std::endl;
-	int X3 = Add(A, B*2);	std::cout << "Add:" << A << '+' << B*2 <<"=="<<X3<< std::endl;	
+	int X1 = Add(A, A);		std::cout << "Add:" << A << '+' << A << "==" << X1 << std::endl;
+	int X2 = Add(A, B);		std::cout << "Add:" << A << '+' << B << "==" << X2 << std::endl;
+	int X3 = Add(A, B * 2);	std::cout << "Add:" << A << '+' << B * 2 << "==" << X3 << std::endl;
 
-	int Y1 = Sub(A, A);		std::cout << "Sub:" << A << '-' << A <<"=="<<Y1<< std::endl;
-	int Y2 = Sub(A, B);		std::cout << "Sub:" << A << '-' << B <<"=="<<Y2<<std::endl;
+	int Y1 = Sub(A, A);		std::cout << "Sub:" << A << '-' << A << "==" << Y1 << std::endl;
+	int Y2 = Sub(A, B);		std::cout << "Sub:" << A << '-' << B << "==" << Y2 << std::endl;
 	int Y3 = Sub(A, B * 2); std::cout << "Sub:" << A << '-' << B * 2 << "==" << Y3 << std::endl;
-	int Y4 = Sub(A/2, A);	std::cout << "Sub:" << A/2 << '-' << A << "==" << Y4 << std::endl;
+	int Y4 = Sub(A / 2, A);	std::cout << "Sub:" << A / 2 << '-' << A << "==" << Y4 << std::endl;
 
-	int Z1 = Mul(A, A);		std::cout << "Mul:" << A << '*' << A <<"=="<<Z1<< std::endl;
-	int Z2 = Mul(A, B);		std::cout << "Mul:" << A << '*' << B <<"=="<<Z2<<std::endl;
+	int Z1 = Mul(A, A);		std::cout << "Mul:" << A << '*' << A << "==" << Z1 << std::endl;
+	int Z2 = Mul(A, B);		std::cout << "Mul:" << A << '*' << B << "==" << Z2 << std::endl;
 	int Z3 = Mul(A, B * 2); std::cout << "Mul:" << A << '*' << B * 2 << "==" << Z3 << std::endl;
-	int Z4 = Mul(A/2, A);	std::cout << "Mul:" << A/2 << '*' << A << "==" << Z4 << std::endl;
-	int Z5 = Mul(-A, -A);		std::cout << "Mul:" << -A << '*' << -A <<"=="<<Z5<< std::endl;
-	int Z6 = Mul(-A, A);		std::cout << "Mul:" << -A << '*' << A <<"=="<<Z6<< std::endl;
+	int Z4 = Mul(A / 2, A);	std::cout << "Mul:" << A / 2 << '*' << A << "==" << Z4 << std::endl;
+	int Z5 = Mul(-A, -A);		std::cout << "Mul:" << -A << '*' << -A << "==" << Z5 << std::endl;
+	int Z6 = Mul(-A, A);		std::cout << "Mul:" << -A << '*' << A << "==" << Z6 << std::endl;
 
-	
 
-	auto W1 = DivMod(A, A);		std::cout << "Div:" << A << '/' << A << "=="<< std::get<0>(W1)<< std::endl;
-	auto W2 = DivMod(A, B);		std::cout << "Div:" << A << '/' << B << "=="<< std::get<0>(W2)<<std::endl;
-	auto W3 = DivMod(A, B/2);	std::cout << "Div:" << A << '/' << B/2 <<"=="<<std::get<0>(W3)<< std::endl;
+
+	auto W1 = DivMod(A, A);		std::cout << "Div:" << A << '/' << A << "==" << std::get<0>(W1) << std::endl;
+	auto W2 = DivMod(A, B);		std::cout << "Div:" << A << '/' << B << "==" << std::get<0>(W2) << std::endl;
+	auto W3 = DivMod(A, B / 2);	std::cout << "Div:" << A << '/' << B / 2 << "==" << std::get<0>(W3) << std::endl;
 
 	std::size_t L = 32;
 
 	for (int i = 0; i < L; i++) {
 		for (int j = 1; j <= i; j++) {
 			auto X = DivMod(i, j);
-			std::cout << "Div:" << i << '/' << j <<"=="<<std::get<0>(X)<<','<<std::get<1>(X)<< std::endl;
+			std::cout << "Div:" << i << '/' << j << "==" << std::get<0>(X) << ',' << std::get<1>(X) << std::endl;
 		}
 	}
-	std::size_t LL = 1024;
 
-	std::mt19937 mt(1);
+	std::cout << "Random DivMod Test." << std::endl;
+	std::size_t LL = 10240;
+
+	std::mt19937 mt(0);
 	std::uniform_int_distribution<int> ui(-1024, 1024);
 	for (std::size_t i = 0; i < LL; i++) {
 		auto X = ui(mt);
 		auto Y = ui(mt);
+		if (Y == 0) { continue; }
 		auto W = DivMod(X, Y);
-
-		std::cout << X << '/' << Y << ':' << X / Y << "==" << std::get<0>(W) <<":\t"<<((X/Y)==std::get<0>(W))<<','<< X % Y << "==" << std::get<1>(W) << std::endl;
+			std::cout << X << ',' << Y << "\r";		
+		if ((X / Y) != std::get<0>(W)) { std::cout << X << '/' << Y << ':' << ((X / Y) == std::get<0>(W)) << std::endl; }
+		if ((X % Y) != std::get<1>(W)) { std::cout << X << '%' << Y << ':' << ((X % Y) == std::get<1>(W)) << std::endl; }
 	}
 
+	/** /
+	for (std::int64_t i = -0xbeaf; i < 0xbeef; i++) {
+		for (std::int64_t j = -0xbeaf; j < i; j++) {
+			std::cout << i << ',' << j << "\r";
+			auto V = DivMod(i, j);
+			if (std::get<0>(V) != i / j) {
+				std::cout << i << '/' << j << ' ' << std::get<0>(V) << "!=" << i / j << std::endl;
+			}
+			if (std::get<1>(V) != i % j) {
+				std::cout << i << '%' << j << ' ' << std::get<1>(V) << "!=" << i % j << std::endl;
+			}
+		}
+	}
+	/**/
 	return 0;
 
 }
